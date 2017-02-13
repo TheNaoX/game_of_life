@@ -1,10 +1,8 @@
-require_relative './grid.rb'
-
 class Player
-  attr_reader :grid
+  attr_reader :board
 
-  def initialize(grid)
-    @grid = grid
+  def initialize(board)
+    @board = board
   end
 
   def play
@@ -14,13 +12,13 @@ class Player
   end
 
   def draw
-    grid.draw
+    board.draw
   end
 
   private
 
   def transform(cell, x, y)
-    neighbours = grid.neighbors_for(x, y)
+    neighbours = board.neighbors_for(x, y)
 
     alive = neighbours.select { |n| n.alive?  }
     dead  = neighbours.select { |n| !n.alive? }
@@ -37,7 +35,7 @@ class Player
   end
 
   def iterate
-    grid.grid.each_with_index do |rows, x|
+    board.grid.each_with_index do |rows, x|
       rows.each_with_index do |cell, y|
         yield(cell, x, y)
       end

@@ -1,10 +1,10 @@
-require_relative './cell.rb'
-
 class Grid
-  attr_reader :rows, :columns, :grid
+  attr_reader :rows, :columns, :grid, :cell_klass
 
-  def initialize(rows, columns)
+  def initialize(rows, columns, cell_klass)
     @rows, @columns = rows, columns
+
+    @cell_klass = cell_klass
 
     @grid = generate_grid
   end
@@ -33,7 +33,7 @@ class Grid
   def generate_grid
     Array.new(rows) do
       Array.new(columns) do
-        Cell.new
+        cell_klass.new
       end
     end
   end
